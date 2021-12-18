@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
-
-import { ProductListComponent } from './product-list.component';
+import { SharedModule } from '../shared/shared.module';
 import { ProductDetailComponent } from './product-detail.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
-
-import { SharedModule } from '../shared/shared.module';
+import { ProductListComponent } from './product-list.component';
+import { ProductRoutingModule } from './product-routing.module';
 
 @NgModule({
   imports: [
-    SharedModule
+    SharedModule,
+    ProductRoutingModule,
   ],
   declarations: [
     ProductListComponent,
