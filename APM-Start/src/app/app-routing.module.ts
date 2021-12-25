@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
-import {
-  RouterModule,
-  PreloadAllModules,
-  PreloadingStrategy,
-} from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { WelcomeComponent } from './home/welcome.component';
 import { PageNotFoundComponent } from './page-not-found.component';
 import { AuthGuard } from './user/auth.guard';
+import { SelectiveStrategy } from './selective-strategy.service';
 
 @NgModule({
   imports: [
@@ -15,6 +12,7 @@ import { AuthGuard } from './user/auth.guard';
         { path: 'welcome', component: WelcomeComponent },
         {
           path: 'products',
+          data: { preload: true },
           // canLoad: [AuthGuard], // load module after successfully logged in, but it blocks any preloading!
           canActivate: [AuthGuard], // to use with preloadall
           loadChildren: () =>
@@ -23,7 +21,7 @@ import { AuthGuard } from './user/auth.guard';
         { path: '', redirectTo: 'welcome', pathMatch: 'full' },
         { path: '**', component: PageNotFoundComponent },
       ],
-      { preloadingStrategy: PreloadAllModules }
+      { preloadingStrategy: SelectiveStrategy }
     ),
   ],
   exports: [RouterModule],
