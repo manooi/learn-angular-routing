@@ -1,14 +1,22 @@
 import { Component } from '@angular/core';
-import { Router, Event, NavigationStart, NavigationEnd, NavigationError, NavigationCancel } from '@angular/router';
+import {
+  Router,
+  Event,
+  NavigationStart,
+  NavigationEnd,
+  NavigationError,
+  NavigationCancel,
+} from '@angular/router';
 
 import { AuthService } from './user/auth.service';
 import { slideInAnimation } from './app.animation';
+import { MessageService } from './messages/message.service';
 
 @Component({
   selector: 'pm-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  animations: [slideInAnimation]
+  animations: [slideInAnimation],
 })
 export class AppComponent {
   pageTitle = 'Acme Product Management';
@@ -25,10 +33,14 @@ export class AppComponent {
     return '';
   }
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    public messageService: MessageService
+  ) {
     router.events.subscribe((routerEvent: Event) => {
       this.checkRouterEvent(routerEvent);
-    })
+    });
   }
 
   checkRouterEvent(routerEvent: Event) {
@@ -36,9 +48,11 @@ export class AppComponent {
       this.loading = true;
     }
 
-    if (routerEvent instanceof NavigationEnd ||
+    if (
+      routerEvent instanceof NavigationEnd ||
       routerEvent instanceof NavigationCancel ||
-      routerEvent instanceof NavigationError) {
+      routerEvent instanceof NavigationError
+    ) {
       this.loading = false;
     }
   }
@@ -46,5 +60,16 @@ export class AppComponent {
   logOut(): void {
     this.authService.logout();
     this.router.navigateByUrl('/welcome');
+  }
+
+  displayMessages() {
+    // this.router.navigateByUrl('/login(popup:messages)');
+    this.router.navigate([{ outlets: { popup: ['messages'] } }]);
+    this.messageService.isDisplayed = true;
+  }
+
+  hideMessages() {
+    this.messageService.isDisplayed = false;
+    this.router.navigate([{ outlets: { popup: null } }]);
   }
 }

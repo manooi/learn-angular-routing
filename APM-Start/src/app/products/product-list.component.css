@@ -50,6 +50,7 @@ thead {
   animation-duration: 4s;
   animation-iteration-count: infinite;
   animation-timing-function: cubic-bezier(0.82, 0.01, 0.15, 1.01);
+  z-index: 10;
 }
 
 .loading .circle {
