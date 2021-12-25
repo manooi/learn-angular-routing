@@ -5,6 +5,9 @@ import {
   RouterStateSnapshot,
   UrlTree,
   Router,
+  CanLoad,
+  Route,
+  UrlSegment,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
@@ -13,8 +16,13 @@ import Swal from 'sweetalert2';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate, CanLoad {
   constructor(private authService: AuthService, private router: Router) {}
+
+  canLoad(route: Route): boolean {
+    console.log(route);
+    return this.checkLoggedIn(route.path);
+  }
 
   canActivate(
     next: ActivatedRouteSnapshot,
