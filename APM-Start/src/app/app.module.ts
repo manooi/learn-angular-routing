@@ -17,22 +17,21 @@ import { UserModule } from './user/user.module';
 import { MessageModule } from './messages/message.module';
 import { AppRoutingModule } from './app-routing.module';
 
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    InMemoryWebApiModule.forRoot(ProductData, { delay: 2000 }),
+    InMemoryWebApiModule.forRoot(ProductData, { delay: 1000 }),
     ProductModule,
     UserModule,
     MessageModule,
     AppRoutingModule, // put last!
+    SweetAlert2Module.forRoot(),
   ],
-  declarations: [
-    AppComponent,
-    WelcomeComponent,
-    PageNotFoundComponent
-  ],
-  bootstrap: [AppComponent]
+  declarations: [AppComponent, WelcomeComponent, PageNotFoundComponent],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,5 +1,5 @@
 thead {
-  color: #337AB7;
+  color: #337ab7;
 }
 
 /* Spinner
@@ -41,7 +41,7 @@ thead {
 } */
 
 .loading {
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
